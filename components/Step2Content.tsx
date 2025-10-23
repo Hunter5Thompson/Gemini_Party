@@ -1,4 +1,10 @@
 import React, { useState } from 'react';
+import ChunkingAndEmbeddingDetails from './details/ChunkingAndEmbeddingDetails';
+import GraphDatabasesDetails from './details/GraphDatabasesDetails';
+import HybridRetrievalDetails from './details/HybridRetrievalDetails';
+import IndexingStrategiesDetails from './details/IndexingStrategiesDetails';
+import RerankingPipelinesDetails from './details/RerankingPipelinesDetails';
+import VectorDatabasesDetails from './details/VectorDatabasesDetails';
 
 interface StepData {
   id: number;
@@ -31,6 +37,27 @@ const Step2Content: React.FC<DetailedStepContentProps> = ({ stepData, detailsDat
   const skillDetails = detailsData[selectedSkill];
 
   const renderSkillDetails = () => {
+    // Custom components for Step 4
+    if (stepData.id === 4) {
+      switch (selectedSkill) {
+        case 'Vector Databases':
+          return <VectorDatabasesDetails />;
+        case 'Graph Databases':
+          return <GraphDatabasesDetails />;
+        case 'Hybrid retrieval':
+            return <HybridRetrievalDetails />;
+        case 'Reranking pipelines':
+            return <RerankingPipelinesDetails />;
+        case 'Indexing strategies (HNSW, IVF)':
+            return <IndexingStrategiesDetails />;
+        case 'Chunking and embedding':
+            return <ChunkingAndEmbeddingDetails />;
+        default:
+          break;
+      }
+    }
+
+
     if (!skillDetails || skillDetails.learningPoints.length === 0) {
        return (
         <>
