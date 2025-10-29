@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import ChunkingAndEmbeddingDetails from './details/ChunkingAndEmbeddingDetails';
 import GraphDatabasesDetails from './details/GraphDatabasesDetails';
 import HybridRetrievalDetails from './details/HybridRetrievalDetails';
@@ -33,6 +33,14 @@ interface DetailedStepContentProps {
 
 const Step2Content: React.FC<DetailedStepContentProps> = ({ stepData, detailsData }) => {
   const [selectedSkill, setSelectedSkill] = useState<string>(stepData.skills[0]);
+
+  // This effect ensures that when the user navigates to a new step,
+  // the selected skill is reset to the first skill of that new step.
+  useEffect(() => {
+    if (stepData.skills && stepData.skills.length > 0) {
+      setSelectedSkill(stepData.skills[0]);
+    }
+  }, [stepData.id]); // The dependency array ensures this runs only when the step ID changes.
 
   const skillDetails = detailsData[selectedSkill];
 
