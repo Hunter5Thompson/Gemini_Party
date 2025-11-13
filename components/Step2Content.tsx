@@ -5,6 +5,12 @@ import HybridRetrievalDetails from './details/HybridRetrievalDetails';
 import IndexingStrategiesDetails from './details/IndexingStrategiesDetails';
 import RerankingPipelinesDetails from './details/RerankingPipelinesDetails';
 import VectorDatabasesDetails from './details/VectorDatabasesDetails';
+import LlmAsJudgeDetails from './details/LlmAsJudgeDetails';
+import MultiTurnEvalsDetails from './details/MultiTurnEvalsDetails';
+import AiAgentEvaluationDetails from './details/AiAgentEvaluationDetails';
+import ComponentLevelEvalsDetails from './details/ComponentLevelEvalsDetails';
+import ObservabilityPlatformsDetails from './details/ObservabilityPlatformsDetails';
+import AiAgentInstrumentationDetails from './details/AiAgentInstrumentationDetails';
 
 interface StepData {
   id: number;
@@ -60,6 +66,26 @@ const Step2Content: React.FC<DetailedStepContentProps> = ({ stepData, detailsDat
             return <IndexingStrategiesDetails />;
         case 'Chunking and embedding':
             return <ChunkingAndEmbeddingDetails />;
+        default:
+          break;
+      }
+    }
+
+    // Custom components for Step 8
+    if (stepData.id === 8) {
+      switch (selectedSkill) {
+        case 'LLM-as-a-judge':
+          return <LlmAsJudgeDetails />;
+        case 'Multi-turn evals':
+          return <MultiTurnEvalsDetails />;
+        case 'AI Agent Evaluation':
+          return <AiAgentEvaluationDetails />;
+        case 'Component-level evals':
+          return <ComponentLevelEvalsDetails />;
+        case 'Observability platforms':
+          return <ObservabilityPlatformsDetails />;
+        case 'AI Agent instrumentation':
+          return <AiAgentInstrumentationDetails />;
         default:
           break;
       }
