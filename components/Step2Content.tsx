@@ -11,6 +11,18 @@ import AiAgentEvaluationDetails from './details/AiAgentEvaluationDetails';
 import ComponentLevelEvalsDetails from './details/ComponentLevelEvalsDetails';
 import ObservabilityPlatformsDetails from './details/ObservabilityPlatformsDetails';
 import AiAgentInstrumentationDetails from './details/AiAgentInstrumentationDetails';
+import GuardrailsDetails from './details/GuardrailsDetails';
+import SandboxingDetails from './details/SandboxingDetails';
+import EthicalGuidelinesDetails from './details/EthicalGuidelinesDetails';
+import PromptInjectionDefensesDetails from './details/PromptInjectionDefensesDetails';
+import CliAgentsDetails from './details/CliAgentsDetails';
+import SlackAgentsDetails from './details/SlackAgentsDetails';
+import ComputerUseAgentsDetails from './details/ComputerUseAgentsDetails';
+import AgentSwarmsDetails from './details/AgentSwarmsDetails';
+import SelfRefinementDetails from './details/SelfRefinementDetails';
+import RoboticAgentsDetails from './details/RoboticAgentsDetails';
+import VoiceAndVisionAgentsDetails from './details/VoiceAndVisionAgentsDetails';
+import AutomatedPromptEngineeringDetails from './details/AutomatedPromptEngineeringDetails';
 
 interface StepData {
   id: number;
@@ -86,6 +98,46 @@ const Step2Content: React.FC<DetailedStepContentProps> = ({ stepData, detailsDat
           return <ObservabilityPlatformsDetails />;
         case 'AI Agent instrumentation':
           return <AiAgentInstrumentationDetails />;
+        default:
+          break;
+      }
+    }
+
+    // Custom components for Step 9
+    if (stepData.id === 9) {
+      switch (selectedSkill) {
+        case 'Guardrails':
+          return <GuardrailsDetails />;
+        case 'Sandboxing':
+          return <SandboxingDetails />;
+        case 'Ethical guidelines':
+          return <EthicalGuidelinesDetails />;
+        case 'Prompt injection defenses':
+          return <PromptInjectionDefensesDetails />;
+        default:
+          break;
+      }
+    }
+
+    // Custom components for Step 10
+    if (stepData.id === 10) {
+      switch (selectedSkill) {
+        case 'CLI Agents':
+          return <CliAgentsDetails />;
+        case 'Slack agents':
+          return <SlackAgentsDetails />;
+        case 'Computer use':
+          return <ComputerUseAgentsDetails />;
+        case 'Agent swarms':
+          return <AgentSwarmsDetails />;
+        case 'Self-refinement':
+          return <SelfRefinementDetails />;
+        case 'Robotic Agents':
+          return <RoboticAgentsDetails />;
+        case 'Voice and Vision Agents':
+          return <VoiceAndVisionAgentsDetails />;
+        case 'Automated Prompt Engineering':
+          return <AutomatedPromptEngineeringDetails />;
         default:
           break;
       }
