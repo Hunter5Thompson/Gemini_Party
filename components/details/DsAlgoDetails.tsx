@@ -1,10 +1,15 @@
 import React from 'react';
 import { dsAlgoData } from '../../data/details/dsAlgoData';
 
+interface Visualization {
+  type: 'array' | 'linked-list' | 'stack' | 'queue' | 'tree' | 'graph' | 'union-find';
+  data: number[];
+}
+
 const DsAlgoDetails: React.FC = () => {
   const { title, description, learningPoints } = dsAlgoData;
 
-  const renderVisualization = (vis: any) => {
+  const renderVisualization = (vis: Visualization) => {
     switch(vis.type) {
       case 'array':
         return (
@@ -81,11 +86,11 @@ const DsAlgoDetails: React.FC = () => {
           <div className="pros-cons-grid">
             <div>
               <h5>Pros</h5>
-              <ul>{point.pros.map((pro, i) => <li key={i}>{pro}</li>)}</ul>
+              <ul>{point.pros.map((pro, i) => <li key={`pro-${point.id}-${i}`}>{pro}</li>)}</ul>
             </div>
             <div>
               <h5>Cons</h5>
-              <ul>{point.cons.map((con, i) => <li key={i}>{con}</li>)}</ul>
+              <ul>{point.cons.map((con, i) => <li key={`con-${point.id}-${i}`}>{con}</li>)}</ul>
             </div>
           </div>
 

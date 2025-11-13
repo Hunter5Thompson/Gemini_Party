@@ -39,7 +39,7 @@ interface LearningPoint {
 
 interface SkillDetail {
   title: string;
-  description:string;
+  description: string;
   learningPoints: LearningPoint[];
 };
 
@@ -161,12 +161,12 @@ const Step2Content: React.FC<DetailedStepContentProps> = ({ stepData, detailsDat
         <h3>{skillDetails.title}</h3>
         <p>{skillDetails.description}</p>
         
-        {skillDetails.learningPoints.map((point, index) => (
-            <div key={index} className="learning-point">
+        {skillDetails.learningPoints.map((point) => (
+            <div key={`point-${point.title}`} className="learning-point">
             <h4>{point.title}</h4>
             <p>{point.description}</p>
             {point.examples && point.examples.map((example, exIndex) => (
-                <div key={exIndex} className="code-example">
+                <div key={`example-${point.title}-${exIndex}`} className="code-example">
                 {example.description && <p>{example.description}</p>}
                 {example.code && <pre><code>{example.code}</code></pre>}
                 </div>

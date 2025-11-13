@@ -13,6 +13,21 @@ import { step8Data } from './data/step8Data';
 import { step9Data } from './data/step9Data';
 import { step10Data } from './data/step10Data';
 
+interface LearningPoint {
+  title: string;
+  description: string;
+  examples?: { description: string; code: string }[];
+}
+
+interface SkillDetail {
+  title: string;
+  description: string;
+  learningPoints: LearningPoint[];
+}
+
+interface StepDetailsData {
+  [key: number]: { [skillName: string]: SkillDetail };
+}
 
 const roadmapData = [
   {
@@ -77,7 +92,7 @@ const roadmapData = [
   }
 ];
 
-const stepDetailsData: { [key: number]: any } = {
+const stepDetailsData: StepDetailsData = {
   2: llmApiData,
   3: step3Data,
   4: step4Data,
@@ -119,8 +134,8 @@ const RoadmapPage = () => {
         <p>{currentStepData.description}</p>
         <h3 className="skills-title">Key Skills & Concepts</h3>
         <ul className="skills-list">
-          {currentStepData.skills.map((skill, index) => (
-            <li key={index} className="skill-tag">{skill}</li>
+          {currentStepData.skills.map((skill) => (
+            <li key={skill} className="skill-tag">{skill}</li>
           ))}
         </ul>
       </>
@@ -135,7 +150,7 @@ const RoadmapPage = () => {
         <p>Your path from Beginner Developer to Full-stack AI Engineer</p>
       </header>
       <main className="roadmap-layout">
-        <nav className="stepper-nav">
+        <nav className="stepper-nav" aria-label="Learning roadmap steps navigation">
           {roadmapData.map(step => (
             <div
               key={step.id}
@@ -143,10 +158,11 @@ const RoadmapPage = () => {
               onClick={() => navigate(`/step/${step.id}`)}
               role="button"
               tabIndex={0}
-              aria-label={`Go to step ${step.id}: ${step.title}`}
+              aria-label={`Step ${step.id}: ${step.title}${activeStep === step.id ? ' (current)' : ''}`}
+              aria-current={activeStep === step.id ? 'page' : undefined}
               onKeyDown={(e) => (e.key === 'Enter' || e.key === ' ') && navigate(`/step/${step.id}`)}
             >
-              <div className="step-number">{step.id}</div>
+              <div className="step-number" aria-hidden="true">{step.id}</div>
               <span>{step.title}</span>
             </div>
           ))}

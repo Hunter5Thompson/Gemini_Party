@@ -20,8 +20,9 @@ const GitAndVersionControlDetails: React.FC = () => {
     setCommitMessage('');
 
     try {
-      // Fix: Initialize GoogleGenAI with a named apiKey parameter as per guidelines.
-      // The API key is sourced from process.env.API_KEY as per instructions.
+      // SECURITY WARNING: Using API keys directly in client-side code is insecure
+      // for production applications. This approach is acceptable only for Google AI
+      // Studio environments. For production, use a backend API proxy instead.
       const ai = new GoogleGenAI({ apiKey: process.env.API_KEY! });
       
       const prompt = `Generate a concise and descriptive conventional commit message for the following changes:\n\n${changeDescription}\n\nFormat the output as a single-line commit message. For example: "feat: add user authentication feature"`;
@@ -35,9 +36,10 @@ const GitAndVersionControlDetails: React.FC = () => {
       // Fix: Extract text directly from response.text as per guidelines.
       const text = response.text;
       setCommitMessage(text.trim());
-    } catch (e: any) {
-      setError(`Failed to generate commit message: ${e.message}`);
-      console.error(e);
+    } catch (e) {
+      const errorMsg = e instanceof Error ? e.message : 'Unknown error occurred';
+      setError(`Failed to generate commit message: ${errorMsg}`);
+      console.error('Commit generation failed:', e);
     } finally {
       setIsLoading(false);
     }
@@ -50,12 +52,12 @@ const GitAndVersionControlDetails: React.FC = () => {
       <h3>{title}</h3>
       <p>{description}</p>
       
-      {learningPoints.map((point, index) => (
-        <div key={index} className="learning-point">
+      {learningPoints.map((point) => (
+        <div key={`point-${point.title}`} className="learning-point">
           <h4>{point.title}</h4>
           <p>{point.description}</p>
           {point.examples.map((example, exIndex) => (
-            <div key={exIndex} className="code-example">
+            <div key={`example-${point.title}-${exIndex}`} className="code-example">
               <p>{example.description}</p>
               <pre><code>{example.code}</code></pre>
             </div>
