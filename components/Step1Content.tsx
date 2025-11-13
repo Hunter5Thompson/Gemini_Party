@@ -19,7 +19,7 @@ interface Step1ContentProps {
 
 type SkillDetail = {
   title: string;
-  description:string;
+  description: string;
   points: string[];
 };
 
@@ -60,7 +60,7 @@ const Step1Content: React.FC<Step1ContentProps> = ({ stepData }) => {
         <p>{skillDetails.description}</p>
         <ul>
           {skillDetails.points.map((point, index) => (
-            <li key={index}>{point}</li>
+            <li key={`point-${index}-${point.substring(0, 20)}`}>{point}</li>
           ))}
         </ul>
       </>
@@ -74,15 +74,17 @@ const Step1Content: React.FC<Step1ContentProps> = ({ stepData }) => {
       <div className="step1-layout">
         <aside className="skills-sidebar">
           <h3 className="skills-title">Key Skills & Concepts</h3>
-          <ul className="skills-list-vertical">
+          <ul className="skills-list-vertical" role="menu" aria-label="Skills and concepts">
             {stepData.skills.map((skill) => (
               <li
                 key={skill}
                 className={`skill-item ${selectedSkill === skill ? 'active' : ''}`}
                 onClick={() => setSelectedSkill(skill)}
                 onKeyDown={(e) => (e.key === 'Enter' || e.key === ' ') && setSelectedSkill(skill)}
-                role="button"
+                role="menuitem"
                 tabIndex={0}
+                aria-label={`${skill}${selectedSkill === skill ? ' (selected)' : ''}`}
+                aria-current={selectedSkill === skill ? 'true' : undefined}
               >
                 {skill}
               </li>
